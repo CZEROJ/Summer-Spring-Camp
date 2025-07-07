@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+index
+
+<input type="number" id="input_a"/>
+<input type="number" id="input_b"/>
+
+<button onclick="listener_sum()">더하기!</button>
+<button onclick="homework_multiple()">곱하기!</button>
+
+<script>
+    function listener_sum() {
+        $.ajax({
+            url: '/api/calculate',
+            method: 'GET',
+            data: {
+                a: $("#input_a").val()
+                , b: $("#input_b").val()
+            },
+            success: function (data) {
+                alert("data : " + JSON.stringify(data));
+            },
+            error: function (data, err) {
+            },
+            complete: function () {
+            }
+        });
+    }
+</script>
+
+<script>
+    function homework_multiple() {
+        $.ajax({
+            url: '/api/homework',
+            method: 'GET',
+            data: {
+                num1: $("#input_a").val(),
+                num2: $("#input_b").val(),
+            },
+            success: function (data) {
+                alert("data: " + JSON.stringify(data));
+            },
+            error: function (data, status, err){
+                console.log(err);
+            },
+            complete: function (){
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

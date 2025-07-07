@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+  function list_board() {
+    $.ajax({
+      url: '/api/board/list',
+      method: 'GET',
+      data: {
+        title: $("#input_title").val()
+        , content: $("#input_content").val()
+        , author: $("#input_author").val()
+      },
+      success: function (data) {
+        alert("data : " + JSON.stringify(data));
+      },
+      error: function (data, err) {
+      },
+      complete: function () {
+      }
+    });
+  }
+</script>
+</body>
+</html>
