@@ -2,29 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Board List</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-<button onclick="list_board()">확인!</button>
+list <br/>
+<button onclick="list_board()">조회하기!</button>
+
 <script>
-  function list_board() {
-    $.ajax({
-      url: '/api/board/list',
-      method: 'GET',
-      data: {
-        title: $("#input_title").val()
-        , content: $("#input_content").val()
-        , author: $("#input_author").val()
-      },
-      success: function (data) {
-        alert("data : " + JSON.stringify(data));
-      },
-      error: function (data, err) {
-      },
-      complete: function () {
-      }
-    });
-  }
+    function list_board(){
+        $.ajax({
+            url: '/api/board/list',
+            method: 'GET',
+            success: function (data, status, xhr) {
+                alert("data : : " + JSON.stringify(data));
+            },
+            error: function (data, status, err) {
+            },
+            complete: function () {
+            }
+        });
+    }
 </script>
+
 </body>
 </html>
