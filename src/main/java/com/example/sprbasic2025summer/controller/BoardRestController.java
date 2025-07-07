@@ -53,4 +53,72 @@ public class BoardRestController {
         return map_result;
     }
 
+    @RequestMapping("/detail/{id}")
+    public Map<String, Object> detail(@PathVariable int id) {
+        Map<String, Object> map_board = getData(id);
+        int resultCode = 0;
+        if (map_board != null) {
+            resultCode = 200;
+        }
+        Map<String, Object> map_result = new HashMap<>();
+        map_result.put("code", resultCode);
+        map_result.put("board", map_board);
+        return map_result;
+    }
+
+    public Map<String, Object> getData(int id) {
+        Map<String, Object> map_board = null;
+        for (Map<String, Object> each : list) {
+            int eachId = Integer.parseInt(each.get("id").toString());
+            if (eachId == id) {
+                map_board = each;
+            }
+        }
+        return map_board;
+    }
+
+    @RequestMapping("/update")
+    public Map<String, Object> update(@RequestParam Map<String, Object> param) {
+        int code = 0;
+        int id = Integer.parseInt(param.get("id").toString());
+        String title = param.get("title").toString();
+        //key title에 해당하는 값을 가져오고
+        //그 value가 Object 타입이니, toString 으로 문자열을 리텅하게 한다.
+        String content = param.get("content").toString();
+        String author = param.get("author").toString();
+
+        Map<String, Object> map_board = getData(id);
+        if (map_board != null) {
+            map_board.put("title", title);
+            map_board.put("content", content);
+            map_board.put("author", author);
+            code = 200;
+        }
+        Map<String, Object> map_result = new HashMap<>();
+        map_result.put("code", code);
+        return map_result;
+    }
+
+    @RequestMapping("/delete")
+    public Map<String, Object> delete(
+            @RequestParam Map<String, Object> param) {
+
+        int code = 0;
+        int id = Integer.parseInt(param.get("id").toString());
+
+        int tempI = -1;
+        for(int i=0; i<list.size(); i++){
+            int eachId = Integer.parseInt(list.get(i).get("id").toString());
+            if(eachId == id){
+                tempI =i;
+            }
+        }
+        if(tempI != -1){
+            list.remove(tempI);
+            code = 200;
+        }
+        Map<String, Object> map_result = new HashMap<>();
+        map_result.put("code",code);
+        return map_result;
+    }
 }
